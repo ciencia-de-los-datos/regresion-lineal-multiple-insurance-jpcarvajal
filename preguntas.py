@@ -9,7 +9,6 @@ selección de las n variables más relevantes usando una prueba f.
 # pylint: disable=invalid-name
 # pylint: disable=unsubscriptable-object
 
-from statistics import linear_regression
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 
@@ -66,7 +65,7 @@ def pregunta_03():
     """
 
     # Importe make_column_selector
-    from sklearn.compose import make_column_selector
+    from sklearn.compose import make_column_selector, make_column_transformer
 
     # Importe SelectKBest
     from sklearn.feature_selection import SelectKBest, f_regression
@@ -86,10 +85,11 @@ def pregunta_03():
             (
                 "column_transfomer",
                 ColumnTransformer(
-                    (
+                    [(
+                        'onehot',
                         OneHotEncoder(),
                         make_column_selector(dtype_include=object),
-                    ),
+                    )],
                     remainder="passthrough",
                 ),
             ),
@@ -169,3 +169,8 @@ def pregunta_04():
 
     # Retorne el error cuadrático medio para entrenamiento y prueba
     return mse_train, mse_test
+
+pregunta_01()
+pregunta_02()
+pregunta_03()
+pregunta_04()
